@@ -1,0 +1,489 @@
+.payment-success-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Arial', sans-serif;
+  padding: 20px;
+  overflow: hidden;
+}
+
+.success-content {
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 500px;
+  width: 100%;
+  position: relative;
+}
+
+/* Checkmark Animation */
+.checkmark-container {
+  width: 80px;
+  height: 80px;
+  background: #4CAF50;
+  border-radius: 50%;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(0);
+  transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.checkmark-container.animate {
+  transform: scale(1);
+}
+
+.checkmark {
+  color: white;
+  font-size: 40px;
+  font-weight: bold;
+  animation: checkmarkPop 0.5s ease-in-out 0.5s both;
+}
+
+@keyframes checkmarkPop {
+  0% {
+    transform: scale(0) rotate(-45deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2) rotate(-45deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+/* Text Animations */
+.success-title {
+  font-size: 2.5em;
+  color: #333;
+  margin-bottom: 10px;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.success-message {
+  font-size: 1.2em;
+  color: #666;
+  margin-bottom: 30px;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.slide-in {
+  animation: slideIn 0.8s ease-out forwards;
+}
+
+@keyframes slideIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Food Animations */
+.food-animation-container {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin: 40px 0;
+  flex-wrap: wrap;
+}
+
+/* Pizza Slice */
+.pizza-slice {
+  width: 60px;
+  height: 60px;
+  position: relative;
+  opacity: 0;
+  transform: scale(0) rotate(-45deg);
+}
+
+.pizza-slice.bounce-in {
+  animation: pizzaBounce 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+@keyframes pizzaBounce {
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(-45deg);
+  }
+  50% {
+    transform: scale(1.2) rotate(15deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+.pizza-top {
+  width: 0;
+  height: 0;
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-bottom: 60px solid #FFD700;
+  position: relative;
+}
+
+.pizza-top::after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: -25px;
+  width: 50px;
+  height: 40px;
+  background: #FF6347;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  opacity: 0.3;
+}
+
+.pepperoni {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: #FF4500;
+  border-radius: 50%;
+  animation: pepperoniFloat 2s ease-in-out infinite;
+}
+
+.pepperoni:nth-child(2) {
+  top: 20px;
+  left: 15px;
+  animation-delay: 0.3s;
+}
+
+.pepperoni:nth-child(3) {
+  top: 35px;
+  left: 25px;
+  animation-delay: 0.6s;
+}
+
+.pepperoni:nth-child(4) {
+  top: 25px;
+  left: 40px;
+  animation-delay: 0.9s;
+}
+
+@keyframes pepperoniFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Burger */
+.burger {
+  width: 50px;
+  height: 40px;
+  position: relative;
+  opacity: 0;
+}
+
+.burger.bounce-in {
+  animation: burgerBounce 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+@keyframes burgerBounce {
+  0% {
+    opacity: 0;
+    transform: translateY(100px) scale(0);
+  }
+  60% {
+    transform: translateY(-10px) scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.burger-top, .burger-bottom {
+  width: 50px;
+  height: 8px;
+  background: #8B4513;
+  border-radius: 5px;
+  position: absolute;
+}
+
+.burger-top {
+  top: 0;
+}
+
+.burger-patty {
+  width: 45px;
+  height: 10px;
+  background: #8B0000;
+  border-radius: 5px;
+  position: absolute;
+  top: 12px;
+  left: 2.5px;
+  animation: pattySizzle 2s ease-in-out infinite;
+}
+
+.burger-cheese {
+  width: 48px;
+  height: 3px;
+  background: #FFD700;
+  border-radius: 2px;
+  position: absolute;
+  top: 22px;
+  left: 1px;
+  animation: cheeseMelt 3s ease-in-out infinite;
+}
+
+.burger-bottom {
+  bottom: 0;
+}
+
+@keyframes pattySizzle {
+  0%, 100% {
+    transform: scaleX(1);
+  }
+  50% {
+    transform: scaleX(1.05);
+  }
+}
+
+@keyframes cheeseMelt {
+  0%, 100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(1.3);
+  }
+}
+
+/* French Fries */
+.fries-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  opacity: 0;
+}
+
+.fries-container.bounce-in {
+  animation: friesFall 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+@keyframes friesFall {
+  0% {
+    opacity: 0;
+    transform: translateY(-100px) rotate(90deg);
+  }
+  70% {
+    transform: translateY(10px) rotate(-5deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+.fry {
+  width: 25px;
+  height: 4px;
+  background: #FFA500;
+  border-radius: 1px;
+  animation: fryTwitch 1.5s ease-in-out infinite;
+}
+
+.fry:nth-child(1) { animation-delay: 0.1s; }
+.fry:nth-child(2) { animation-delay: 0.2s; }
+.fry:nth-child(3) { animation-delay: 0.3s; }
+.fry:nth-child(4) { animation-delay: 0.4s; }
+.fry:nth-child(5) { animation-delay: 0.5s; }
+
+@keyframes fryTwitch {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(2deg);
+  }
+}
+
+/* Delivery Guy Animation */
+.delivery-guy {
+  margin: 30px 0;
+  opacity: 0;
+  transform: translateX(-100vw);
+}
+
+.delivery-guy.drive-in {
+  animation: driveIn 2s ease-out forwards;
+}
+
+@keyframes driveIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-100vw);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.delivery-bike {
+  position: relative;
+  width: 100px;
+  height: 60px;
+  margin: 0 auto;
+}
+
+.bike-body {
+  width: 60px;
+  height: 30px;
+  background: #e74c3c;
+  border-radius: 5px;
+  position: absolute;
+  top: 10px;
+  left: 20px;
+}
+
+.bike-wheel {
+  width: 20px;
+  height: 20px;
+  border: 3px solid #333;
+  border-radius: 50%;
+  position: absolute;
+  animation: wheelSpin 1s linear infinite;
+}
+
+.front-wheel {
+  top: 40px;
+  right: 10px;
+}
+
+.back-wheel {
+  top: 40px;
+  left: 10px;
+}
+
+.delivery-box {
+  width: 30px;
+  height: 20px;
+  background: #27ae60;
+  position: absolute;
+  top: 0;
+  right: 40px;
+  animation: boxBounce 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes wheelSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes boxBounce {
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(-3px);
+  }
+}
+
+/* Order Details */
+.order-details {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px 0;
+  opacity: 0;
+}
+
+.order-details.fade-in {
+  animation: fadeInUp 0.8s ease-out 0.5s forwards;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.detail-item:last-child {
+  margin-bottom: 0;
+  border-bottom: none;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Continue Button */
+.continue-button {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  font-size: 1.1em;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: bold;
+  opacity: 0;
+}
+
+.continue-button.pulse {
+  animation: fadeInUp 0.8s ease-out 1s forwards, buttonPulse 2s ease-in-out infinite;
+}
+
+.continue-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes buttonPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .success-content {
+    padding: 30px 20px;
+    margin: 20px;
+  }
+  
+  .success-title {
+    font-size: 2em;
+  }
+  
+  .food-animation-container {
+    gap: 20px;
+  }
+  
+  .detail-item {
+    flex-direction: column;
+    text-align: left;
+    gap: 5px;
+  }
+}
