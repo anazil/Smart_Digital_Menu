@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-#@et0h-p1l57!w(5y%k+bbtsn&yhsoyc)-d5yczh3=0t_&#n5u'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-#@et0h-p1l57!w(5y%k+bbtsn&yhsoyc)-d5yczh3=0t_&#n5u')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -64,7 +65,14 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'Back_End.urls'
 
-CORS_ALLOW_ALL_ORIGINS = True
+# CORS settings
+if DEBUG:
+    CORS_ALLOW_ALL_ORIGINS = True
+else:
+    CORS_ALLOWED_ORIGINS = [
+        "https://your-app.vercel.app",  # Update with your Vercel URL
+        "http://localhost:5173",  # for development
+    ]
 
 TEMPLATES = [
     {
@@ -89,10 +97,23 @@ WSGI_APPLICATION = 'Back_End.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('PGDATABASE'),
+        'USER': os.environ.get('PGUSER'),
+        'PASSWORD': os.environ.get('PGPASSWORD'),
+        'HOST': os.environ.get('PGHOST'),
+        'PORT': os.environ.get('PGPORT'),
     }
 }
+
+# Fallback to SQLite for local development
+if not os.environ.get('PGDATABASE'):
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 
 # Password validation
@@ -130,6 +151,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
@@ -142,5 +164,5 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
-RAZORPAY_KEY_ID = "rzp_test_Rh50g9UE2UHFU5"
-RAZORPAY_KEY_SECRET = "Ir6m9FSBIQi5yGbl8BFBumBG"
+RAZORPAY_KEY_ID = os.environ.get('RAZORPAY_KEY_ID', "rzp_test_Rh50g9UE2UHFU5")
+RAZORPAY_KEY_SECRET = os.environ.get('RAZORPAY_KEY_SECRET', "Ir6m9FSBIQi5yGbl8BFBumBG")
