@@ -29,7 +29,7 @@ class Table(models.Model):
         unique_together = ("user", "table_number")
     def save(self, *args, **kwargs):
         if not self.qr_code:
-            qr_data = f"http://127.0.0.1:5173/table/{self.table_number}/{self.user.id}"  
+            qr_data = f"https://cliqeat.vercel.app/table/{self.table_number}/{self.user.id}"  
             qr_img = qrcode.make(qr_data)
             buffer = BytesIO()
             qr_img.save(buffer, format='PNG')
