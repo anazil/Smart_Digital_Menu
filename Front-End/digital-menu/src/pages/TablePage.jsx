@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams,useNavigate } from "react-router-dom";
+import API_BASE_URL from "../config/api";
 import "../TablePage.css";
 import { useRef } from 'react';
 
@@ -20,7 +21,7 @@ function TablePage() {
   
   const fetchCategories = async () => {
     try {
-      const res = await axios.get(`http://127.0.0.1:8000/api/categories/${userId}/`);
+      const res = await axios.get(`${API_BASE_URL}/api/categories/${userId}/`);
       setCategories([{ id: 'all', name: 'All', icon: '🍽️' }, ...res.data]);
     } catch (err) {
       console.error(err);
@@ -41,7 +42,7 @@ function TablePage() {
   if (items.length === 0) return alert("Cart is empty 😅");
 
   // Create payment order
-  const res = await axios.post("http://127.0.0.1:8000/api/create-payment-order/", {
+  const res = await axios.post(`${API_BASE_URL}/api/create-payment-order/`, {
     amount: total
   });
 
@@ -56,7 +57,7 @@ function TablePage() {
     handler: async function (response) {
       alert("Payment Success! Order placed successfully");
       
-      const orderResponse = await axios.post("http://127.0.0.1:8000/api/create-order/", {
+      const orderResponse = await axios.post(`${API_BASE_URL}/api/create-order/`, {
         table_number: parseInt(tableNumber),
         user_id: parseInt(userId),
         items: items,
@@ -80,7 +81,7 @@ function TablePage() {
   // Fetch menu items from API
   useEffect(() => {
     fetchCategories();
-    axios.get(`http://127.0.0.1:8000/api/menu-all/${userId}/`)
+    axios.get(`${API_BASE_URL}/api/menu-all/${userId}/`)
       .then((response) => {
         const availableItems=response.data.filter(item=>item.available)
         setMenuItems(availableItems);
@@ -109,7 +110,7 @@ function TablePage() {
     const items = cart.map((c) => ({ id: c.id, quantity: c.qty }));
 
     try {
-      const response = await axios.post("http://127.0.0.1:8000/api/create-order/", {
+      const response = await axios.post(`${API_BASE_URL}/api/create-order/`, {
         table_number: parseInt(tableNumber),
         user_id: parseInt(userId), 
         items: items,
@@ -211,7 +212,7 @@ function TablePage() {
             <div className="modern-food-card" key={item.id}>
               <div className="food-image-wrapper">
                 <img
-                  src={item.image ? `http://127.0.0.1:8000${item.image}` : "https://via.placeholder.com/200x150/FF7A5A/white?text=🍽️"}
+                  src={item.image ? `${API_BASE_URL}${item.image}` : "https://via.placeholder.com/200x150/FF7A5A/white?text=🍽️"}
                   alt={item.name}
                   className="food-image"
                 />

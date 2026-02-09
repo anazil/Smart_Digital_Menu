@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import API_BASE_URL from "../config/api";
 import "../AuthPage.css"; 
 
 function Signup() {
@@ -19,7 +20,7 @@ function Signup() {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const response = await axios.post("http://127.0.0.1:8000/api/auth/register/", formData);
+      const response = await axios.post(`${API_BASE_URL}/api/auth/register/`, formData);
 
       if (response.status === 201 || response.status === 200) {
         alert("Signup successful!");

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import API_BASE_URL from "../config/api";
 import "../KitchenPage.css";
 
 function KitchenPage() {
@@ -9,7 +10,7 @@ function KitchenPage() {
   
   const fetchOrders = async () => {
     try {
-      const res = await axios.get(`http://127.0.0.1:8000/api/kitchen/orders/?user_id=${userId}`);
+      const res = await axios.get(`${API_BASE_URL}/api/kitchen/orders/?user_id=${userId}`);
       const activeOrders = res.data.filter(order => order.status !== 'Served');
       setOrders(activeOrders);
     } catch (err) {
@@ -25,7 +26,7 @@ function KitchenPage() {
 
   const handleStatusChange = async (orderId, newStatus) => {
     try {
-      await axios.patch(`http://127.0.0.1:8000/api/kitchen/order/${orderId}/status/`, {
+      await axios.patch(`${API_BASE_URL}/api/kitchen/order/${orderId}/status/`, {
         status: newStatus,
       });
       fetchOrders();

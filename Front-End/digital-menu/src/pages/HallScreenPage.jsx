@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import API_BASE_URL from "../config/api";
 import "../HallScreenPage.css";
 
 function HallScreenPage() {
@@ -8,7 +9,7 @@ function HallScreenPage() {
   // Fetch active orders
   const fetchOrders = async () => {
     try {
-      const res = await axios.get(`http://127.0.0.1:8000/api/hall/orders/?user_id=${userId}`);
+      const res = await axios.get(`${API_BASE_URL}/api/hall/orders/?user_id=${userId}`);
       const activeOrders = res.data.filter(order => order.status !== 'Served');
       setOrders(activeOrders);
     } catch (err) {

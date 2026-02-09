@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import API_BASE_URL from "../config/api";
 import "../AuthPage.css";
 
 function Login() {
@@ -15,11 +16,11 @@ function Login() {
     setIsLoading(true);
     try {
       // Step 1: Login (get token)
-      const res = await axios.post("http://127.0.0.1:8000/api/auth/login/", formData);
+      const res = await axios.post(`${API_BASE_URL}/api/auth/login/`, formData);
       localStorage.setItem("token", res.data.token);
 
       // Step 2: Get profile (to find user ID)
-      const profileRes = await axios.get("http://127.0.0.1:8000/api/auth/profile/", {
+      const profileRes = await axios.get(`${API_BASE_URL}/api/auth/profile/`, {
         headers: {
           Authorization: `Token ${res.data.token}`,
         },

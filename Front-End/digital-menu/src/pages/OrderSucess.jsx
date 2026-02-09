@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import API_BASE_URL from '../config/api';
 import '../OrderSucess.css';
 
 function OrderSucess() {
@@ -19,7 +20,7 @@ function OrderSucess() {
   const downloadBill = async () => {
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/download-bill/${orderId}/`,
+        `${API_BASE_URL}/api/download-bill/${orderId}/`,
         { method: "GET" }
       );
 

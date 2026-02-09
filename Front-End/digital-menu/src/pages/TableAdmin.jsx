@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import Sidebar from "../components/Sidebar";
 import Alert from "../components/Alert";
+import API_BASE_URL from "../config/api";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../TableAdmin.css";
 import "../AdminDashboard.css";
@@ -34,7 +35,7 @@ function TableAdmin() {
 
   const fetchTables = async () => {
     try {
-      const res = await axios.get(`http://127.0.0.1:8000/api/all-tables/?user_id=${userId}`);
+      const res = await axios.get(`${API_BASE_URL}/api/all-tables/?user_id=${userId}`);
       setTables(res.data);
     } catch (err) {
       console.error("Error fetching tables:", err);
@@ -59,7 +60,7 @@ function TableAdmin() {
 
     setLoading(true);
     try {
-      await axios.post("http://127.0.0.1:8000/api/add-table/", {
+      await axios.post(`${API_BASE_URL}/api/add-table/`, {
         table_number: parseInt(tableNumber, 10),
         user_id: userId,
       });
@@ -94,7 +95,7 @@ function TableAdmin() {
       onConfirm: async () => {
         setAlert(null); // Close confirmation dialog
         try {
-          await axios.delete(`http://127.0.0.1:8000/api/delete-table/${id}/`);
+          await axios.delete(`${API_BASE_URL}/api/delete-table/${id}/`);
           fetchTables();
           setAlert(null); // Auto-close success message
         } catch (err) {
@@ -255,7 +256,7 @@ function TableAdmin() {
                     <div className="table-card-body">
                       <div className="qr-section">
                         <img
-                          src={`http://127.0.0.1:8000${table.qr_code}`}
+                          src={`${API_BASE_URL}${table.qr_code}`}
                           alt="QR Code"
                           className="qr-img"
                         />
@@ -264,7 +265,7 @@ function TableAdmin() {
                       <div className="table-actions">
                         <button
                           className="btn-action btn-print"
-                          onClick={() => handlePrintQR(`http://127.0.0.1:8000${table.qr_code}`)}
+                          onClick={() => handlePrintQR(`${API_BASE_URL}${table.qr_code}`)}
                         >
                           Print QR
                         </button>

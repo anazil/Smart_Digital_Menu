@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import Sidebar from "../components/Sidebar";
+import API_BASE_URL from "../config/api";
 import "../AdminMenuPage.css";
 import "../AdminDashboard.css";
 
@@ -59,7 +60,7 @@ function AdminMenuPage() {
 
   const fetchMenu = async () => {
     try {
-      const res = await axios.get(`http://127.0.0.1:8000/api/menu-all/${userId}/`);
+      const res = await axios.get(`${API_BASE_URL}/api/menu-all/${userId}/`);
       setMenuItems(res.data);
     } catch (err) {
       console.error(err);
@@ -68,7 +69,7 @@ function AdminMenuPage() {
 
   const fetchCategories = async () => {
     try {
-      const res = await axios.get(`http://127.0.0.1:8000/api/categories/${userId}/`);
+      const res = await axios.get(`${API_BASE_URL}/api/categories/${userId}/`);
       setCategories(res.data);
     } catch (err) {
       console.error(err);
@@ -82,7 +83,7 @@ function AdminMenuPage() {
 
   const handleAddCategory = async () => {
     try {
-      await axios.post("http://127.0.0.1:8000/api/add-category/", {
+      await axios.post(`${API_BASE_URL}/api/add-category/`, {
         name: newCategory.name,
         icon: newCategory.icon,
         user_id: userId
@@ -116,7 +117,7 @@ function AdminMenuPage() {
   }
 
   try {
-    await axios.post("http://127.0.0.1:8000/api/add-menu-item/", formData, {
+    await axios.post(`${API_BASE_URL}/api/add-menu-item/`, formData, {
       headers: { "Content-Type": "multipart/form-data" },
     });
     alert("✅ Item added successfully!");
@@ -132,7 +133,7 @@ function AdminMenuPage() {
 const handleToggleAvailable = async (item) => {
   try {
     const updatedData = { available: !item.available };
-    await axios.patch(`http://127.0.0.1:8000/api/update-menu-item/${item.id}/`, updatedData);
+    await axios.patch(`${API_BASE_URL}/api/update-menu-item/${item.id}/`, updatedData);
     fetchMenu(); // refresh menu list
   } catch (err) {
     console.error("Toggle failed:", err);
@@ -144,7 +145,7 @@ const handleToggleAvailable = async (item) => {
 const handleDelete = async (itemId) => {
   if (!window.confirm("Are you sure you want to delete this item?")) return;
   try {
-    await axios.delete(`http://127.0.0.1:8000/api/delete-menu-item/${itemId}/`);
+    await axios.delete(`${API_BASE_URL}/api/delete-menu-item/${itemId}/`);
     alert("🗑️ Item deleted successfully!");
     fetchMenu(); // refresh after delete
   } catch (err) {
@@ -312,7 +313,7 @@ const handleDelete = async (itemId) => {
                 <div key={item.id} className="menu-item-card">
                   <div className="menu-item-image">
                     <img
-                      src={item.image ? `http://127.0.0.1:8000${item.image}` : "https://via.placeholder.com/200x150"}
+                      src={item.image ? `${API_BASE_URL}${item.image}` : "https://via.placeholder.com/200x150"}
                       alt={item.name}
                       className="item-img"
                     />
