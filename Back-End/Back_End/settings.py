@@ -70,7 +70,7 @@ if DEBUG:
     CORS_ALLOW_ALL_ORIGINS = True
 else:
     CORS_ALLOWED_ORIGINS = [
-        "https://your-app.vercel.app",  # Update with your Vercel URL
+        "https://cliqeat.vercel.app",  # Your Vercel URL
         "http://localhost:5173",  # for development
     ]
 
