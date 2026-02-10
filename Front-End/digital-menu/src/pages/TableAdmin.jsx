@@ -279,7 +279,7 @@ function TableAdmin() {
                       
                       <div className="table-link">
                         <a
-                          href={`https://cliqeat.vercel.app/table/${table.table_number}/${userId}`}
+                          href={`http://localhost:5173/table/${table.table_number}/${userId}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="view-link"
