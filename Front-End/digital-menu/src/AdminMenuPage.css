@@ -413,3 +413,31 @@
   border-radius: 8px;
   display: inline-block;
 }
+.category-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-delete-category {
+  background: none;
+  border: none;
+  color: #ef4444;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  opacity: 0.7;
+}
+
+.btn-delete-category:hover {
+  background: rgba(239, 68, 68, 0.1);
+  opacity: 1;
+  transform: scale(1.1);
+}

@@ -178,10 +178,139 @@ body {
   box-shadow: 0 8px 20px rgba(123, 97, 255, 0.4);
 }
 
-/* Category Container */
+/* Category Container - Mobile Responsive */
 .category-container {
   padding: 0 16px 24px;
   position: relative;
+}
+
+/* Mobile: Show limited categories + More button */
+.category-pills-mobile {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.category-pills-mobile::-webkit-scrollbar {
+  display: none;
+}
+
+/* Desktop: Show all categories with arrows */
+.category-pills-desktop {
+  display: none;
+}
+
+.more-btn {
+  background: #F5F6FF !important;
+  color: #7B61FF !important;
+  border: 2px dashed #7B61FF !important;
+}
+
+/* Category Modal */
+.category-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.category-modal {
+  background: white;
+  border-radius: 24px;
+  width: 100%;
+  max-width: 400px;
+  max-height: 80vh;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid #F5F6FF;
+}
+
+.modal-header h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1A1A2E;
+  margin: 0;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #9CA3AF;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+  background: #F5F6FF;
+  color: #7B61FF;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  padding: 20px 24px;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.category-modal-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 20px 16px;
+  background: #F5F6FF;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #1A1A2E;
+}
+
+.category-modal-item:hover {
+  background: #EBEEFF;
+  transform: translateY(-2px);
+}
+
+.category-modal-item.active {
+  background: linear-gradient(180deg, #8E7CFF, #6A5BFF);
+  color: white;
+  box-shadow: 0 8px 20px rgba(123, 97, 255, 0.4);
+}
+
+.category-modal-item .category-emoji {
+  font-size: 28px;
+}
+
+.category-modal-item .category-text {
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
 }
 
 .category-arrow {
@@ -491,6 +620,14 @@ body {
 
 /* Responsive Design */
 @media (min-width: 768px) {
+  .category-pills-mobile {
+    display: none;
+  }
+  
+  .category-pills-desktop {
+    display: block;
+  }
+  
   .modern-header {
     margin: 24px 24px 32px;
     padding: 24px 32px;

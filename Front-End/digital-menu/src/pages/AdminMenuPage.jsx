@@ -98,6 +98,23 @@ function AdminMenuPage() {
     }
   };
 
+  const handleDeleteCategory = async (categoryId, categoryName) => {
+    if (!window.confirm(`Are you sure you want to delete category "${categoryName}"? This action cannot be undone.`)) return;
+    try {
+      await axios.delete(`${API_BASE_URL}/api/delete-category/${categoryId}/`);
+      alert("🗑️ Category deleted successfully!");
+      fetchCategories();
+      fetchMenu(); // Refresh menu items as they might be affected
+    } catch (err) {
+      console.error("Delete category failed:", err);
+      if (err.response?.data?.error) {
+        alert(`❌ ${err.response.data.error}`);
+      } else {
+        alert("❌ Failed to delete category");
+      }
+    }
+  };
+
   const handleAdd = async () => {
     if (!newItem.category_id) {
       alert("Please select a category");
@@ -203,8 +220,17 @@ const handleDelete = async (itemId) => {
             <div className="categories-list">
               {categories.map((cat) => (
                 <div key={cat.id} className="category-chip">
-                  <span className="category-icon">{cat.icon}</span>
-                  <span className="category-name">{cat.name}</span>
+                  <div className="category-info">
+                    <span className="category-icon">{cat.icon}</span>
+                    <span className="category-name">{cat.name}</span>
+                  </div>
+                  <button 
+                    className="btn-delete-category"
+                    onClick={() => handleDeleteCategory(cat.id, cat.name)}
+                    title="Delete category"
+                  >
+                    ×
+                  </button>
                 </div>
               ))}
             </div>

@@ -265,7 +265,7 @@ function TableAdmin() {
                       <div className="table-actions">
                         <button
                           className="btn-action btn-print"
-                          onClick={() => handlePrintQR(`${API_BASE_URL}${table.qr_code}`)}
+                          onClick={() => handlePrintQR(`${API_BASE_URL}${table.qr_code}`, table.table_number)}
                         >
                           Print QR
                         </button>

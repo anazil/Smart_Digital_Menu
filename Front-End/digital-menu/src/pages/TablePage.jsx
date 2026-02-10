@@ -17,6 +17,7 @@ function TablePage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [showSearch, setShowSearch] = useState(false);
   const [categories, setCategories] = useState([]);
+  const [showCategoryModal, setShowCategoryModal] = useState(false);
   const categoryScrollRef = useRef(null);
   
   const fetchCategories = async () => {
@@ -171,19 +172,11 @@ function TablePage() {
         </button>
       </div>
 
-      {/* Category Pills */}
+      {/* Category Pills - Mobile Responsive */}
       <div className="category-container">
-        <button className="category-arrow category-arrow-left" onClick={() => {
-          if (categoryScrollRef.current) {
-            categoryScrollRef.current.scrollBy({left: -120, behavior: 'smooth'});
-          }
-        }}>
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <polyline points="15,18 9,12 15,6"/>
-          </svg>
-        </button>
-        <div className="category-scroll" ref={categoryScrollRef}>
-          {categories.map((category) => (
+        {/* Show first 3 categories + More button on mobile */}
+        <div className="category-pills-mobile">
+          {categories.slice(0, 3).map((category) => (
             <button
               key={category.name}
               className={`category-pill ${activeCategory === category.name ? 'active' : ''}`}
@@ -193,16 +186,50 @@ function TablePage() {
               <span className="category-text">{category.name}</span>
             </button>
           ))}
+          {categories.length > 3 && (
+            <button 
+              className="category-pill more-btn"
+              onClick={() => setShowCategoryModal(true)}
+            >
+              <span className="category-emoji">⋯</span>
+              <span className="category-text">More</span>
+            </button>
+          )}
         </div>
-        <button className="category-arrow category-arrow-right" onClick={() => {
-          if (categoryScrollRef.current) {
-            categoryScrollRef.current.scrollBy({left: 120, behavior: 'smooth'});
-          }
-        }}>
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <polyline points="9,18 15,12 9,6"/>
-          </svg>
-        </button>
+        
+        {/* Desktop scrollable categories */}
+        <div className="category-pills-desktop">
+          <button className="category-arrow category-arrow-left" onClick={() => {
+            if (categoryScrollRef.current) {
+              categoryScrollRef.current.scrollBy({left: -120, behavior: 'smooth'});
+            }
+          }}>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <polyline points="15,18 9,12 15,6"/>
+            </svg>
+          </button>
+          <div className="category-scroll" ref={categoryScrollRef}>
+            {categories.map((category) => (
+              <button
+                key={category.name}
+                className={`category-pill ${activeCategory === category.name ? 'active' : ''}`}
+                onClick={() => setActiveCategory(category.name)}
+              >
+                <span className="category-emoji">{category.icon}</span>
+                <span className="category-text">{category.name}</span>
+              </button>
+            ))}
+          </div>
+          <button className="category-arrow category-arrow-right" onClick={() => {
+            if (categoryScrollRef.current) {
+              categoryScrollRef.current.scrollBy({left: 120, behavior: 'smooth'});
+            }
+          }}>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <polyline points="9,18 15,12 9,6"/>
+            </svg>
+          </button>
+        </div>
       </div>
 
       {/* Food Grid */}
@@ -233,6 +260,33 @@ function TablePage() {
       </div>
 
 
+
+      {/* Category Modal */}
+      {showCategoryModal && (
+        <div className="category-modal-overlay" onClick={() => setShowCategoryModal(false)}>
+          <div className="category-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h3>Select Category</h3>
+              <button className="close-btn" onClick={() => setShowCategoryModal(false)}>×</button>
+            </div>
+            <div className="category-grid">
+              {categories.map((category) => (
+                <button
+                  key={category.name}
+                  className={`category-modal-item ${activeCategory === category.name ? 'active' : ''}`}
+                  onClick={() => {
+                    setActiveCategory(category.name);
+                    setShowCategoryModal(false);
+                  }}
+                >
+                  <span className="category-emoji">{category.icon}</span>
+                  <span className="category-text">{category.name}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Bottom Cart CTA */}
       {cart.length > 0 && (
