@@ -2,6 +2,32 @@
 
 A comprehensive restaurant management system with QR code-based digital menus, order management, and payment integration.
 
+## 📸 Preview Images
+
+<div align="center">
+  <img src="Preview-Images/1.png" width="300" alt="Landing Page" />
+  <img src="Preview-Images/2.png" width="300" alt="Menu Interface" />
+  <img src="Preview-Images/3.png" width="300" alt="Order Management" />
+</div>
+
+<div align="center">
+  <img src="Preview-Images/4.png" width="300" alt="Kitchen Display" />
+  <img src="Preview-Images/5.png" width="300" alt="Admin Dashboard" />
+  <img src="Preview-Images/6.png" width="300" alt="Payment Interface" />
+</div>
+
+<div align="center">
+  <img src="Preview-Images/7.png" width="300" alt="Table Management" />
+  <img src="Preview-Images/8.png" width="300" alt="Hall Screen" />
+  <img src="Preview-Images/9.png" width="300" alt="Menu Items" />
+</div>
+
+<div align="center">
+  <img src="Preview-Images/10.png" width="300" alt="Order Status" />
+  <img src="Preview-Images/11.png" width="300" alt="Settings" />
+  <img src="Preview-Images/12.png" width="300" alt="QR Code" />
+</div>
+
 ## 🚀 Features
 
 - **Digital Menu**: QR code-based menu access for customers
